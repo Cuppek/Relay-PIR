@@ -1,6 +1,7 @@
 // At the begining relay is "open" (there is a signal going to it).
 // After specified time when there is no move around, program will close relay.
 // If any move appear counting to end starts from beginning
+// In that case relay works in NO state
 
 int PIR = 2; // Motion sensor
 int led = 3; // LED signals relay is open
@@ -27,7 +28,7 @@ void loop()
   
   digitalWrite(led, HIGH);
   digitalWrite(relay, HIGH);
-  Serial.println("Open");
+  Serial.println("Works");
   
   while (myTime < endTime) 
   {
@@ -41,11 +42,13 @@ void loop()
  
   digitalWrite(led, LOW);
   digitalWrite(relay, LOW);
-  Serial.println("Closed");
+  Serial.println("No power");
 
   moveFound = digitalRead(PIR);
   while(moveFound == LOW)
   {
     moveFound = digitalRead(PIR);
   }
+
+  
 }
